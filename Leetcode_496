@@ -1,0 +1,60 @@
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Stack;
+
+public class NextgreaterElement1 {
+
+	public static  int[] nextGreaterElementI(int[] nums1, int[] nums2) {
+		int n2=nums2.length;
+		 int n1=nums1.length;
+		 int []to_return= new int[n1];
+		//ArrayList<Integer> h1= new ArrayList<Integer>();
+		Map <Integer,Integer> h2= new HashMap<Integer,Integer>();
+		if (n2<1) {
+			
+			return new int[0];
+		}
+		Stack<Integer> s1=new Stack<Integer>();
+		s1.push(nums2[0]);
+		for (int i=1;i<n2;i++) {
+			
+			int current=nums2[i];
+			
+			while(!s1.isEmpty() && current>s1.peek() ) {
+				h2.put(s1.peek(),current);
+				s1.pop();
+				
+			}
+			
+			
+				s1.push(current);
+			
+		}
+		while (!s1.isEmpty()) {
+			
+			h2.put(s1.pop(), -1);
+		}
+	
+		for (int i=0;i<n1;i++) {
+			
+			int temp=nums1[i];
+			
+			to_return[i]=h2.get(temp);
+			
+		}
+		
+		for (int i=0;i<n1;i++) {
+			System.out.println("values"+to_return[i]);
+			
+		}
+		
+		return to_return;
+	}
+public static void main(String args[]) {
+		
+		int[] arr1= {4,1,2};
+		int []arr2= {1,3,4,2};
+		nextGreaterElementI(arr1,arr2);
+		
+	}
+}
